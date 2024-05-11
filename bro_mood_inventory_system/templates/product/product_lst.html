@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Dashboard</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+<!--  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">-->
+
+  <link rel="stylesheet" href="{% static 'fontawesome-free/css/all.min.css' %}">
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+<!--  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">-->
+  <link rel="stylesheet" href="{% static 'tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+<!--  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">-->
+  <link rel="stylesheet" href="{% static 'icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+<!--  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">-->
+  <link rel="stylesheet" href="{% static 'jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+<!--  <link rel="stylesheet" href="dist/css/adminlte.min.css">-->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- overlayScrollbars -->
+<!--  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">-->
+  <link rel="stylesheet" href="{% static 'overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+<!--  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">-->
+  <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+<!--  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">-->
+  <link rel="stylesheet" href="{% static 'summernote/summernote-bs4.min.css' %}">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+
+  {% include 'basic/navbar.html' %}
+
+
+  {% include 'basic/side_bar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Product</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Product</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Product</h3>
+        </div>
+        <!-- /.card-header -->
+<!--        <div class="card-body">-->
+<!--          <div id="jsGrid1">-->
+<!--            <div class="container">-->
+<!--              <div class="row row-cols-5">-->
+<!--                <div class="col" style=""><b>Name</b></div>-->
+<!--                <div class="col"><b>Description</b></div>-->
+<!--                <div class="col"><b>Category</b></div>-->
+<!--                <div class="col"><b>Base Price</b></div>-->
+<!--                <div class="col"><b>Supplier</b></div>-->
+<!--            </div>-->
+
+<!--              <div class="row row-cols-5">-->
+<!--                <div class="col">Jordan Max</div>-->
+<!--                <div class="col">Very premium quality</div>-->
+<!--                <div class="col">Foot wear</div>-->
+<!--                <div class="col">(RS)425</div>-->
+<!--                <div class="col">Mohan Garden</div>-->
+<!--            </div>-->
+
+<!--              <div class="row row-cols-5">-->
+<!--                <div class="col">Zoom Air</div>-->
+<!--                <div class="col">OK quality</div>-->
+<!--                <div class="col">Foot wear</div>-->
+<!--                <div class="col">(RS)255</div>-->
+<!--                <div class="col">Mohan Garden</div>-->
+<!--            </div>-->
+
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <!-- /.card-body -->
+
+         <div class="container">
+           <div class="row">
+            <div class="col">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Base Price</th>
+                            <th>Supplier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jordan Max</td>
+                            <td>Very premium quality</td>
+                            <td>Footwear</td>
+                            <td>(RS)425</td>
+                            <td>Mohan Garden</td>
+                        </tr>
+                        <tr>
+                            <td>Zoom Air</td>
+                            <td>OK quality</td>
+                            <td>Footwear</td>
+                            <td>(RS)255</td>
+                            <td>Mohan Garden</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+      </div>
+      <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  {% include 'basic/footer.html' %}
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src= "{% static 'jquery/jquery.min.js' %}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'chart.js/Chart.min.js' %}"></script>
+<!-- Sparkline -->
+<script src="{% static 'sparklines/sparkline.js' %}"></script>
+<!-- JQVMap -->
+<!--<script src="plugins/jqvmap/jquery.vmap.min.js"></script>-->
+<script src="{% static 'jqvmap/jquery.vmap.min.js' %}"></script>
+<!--<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>-->
+<script src="{% static 'jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{% static 'jquery-knob/jquery.knob.min.js' %}"></script>
+<!-- daterangepicker -->
+<script src="{% static 'moment/moment.min.js' %}"></script>
+<script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{% static 'tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<!-- Summernote -->
+<script src="{% static 'summernote/summernote-bs4.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script src="{% static 'overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.js' %}" ></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}" ></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src= "{% static 'dist/js/pages/dashboard.js' %}"></script>
+<script>
+  $(function () {
+    $("#jsGrid1").jsGrid({
+        height: "100%",
+        width: "100%",
+
+        sorting: true,
+        paging: true,
+
+        data: db.clients,
+
+        fields: [
+            { name: "Name", type: "text", width: 150 },
+            { name: "Age", type: "number", width: 50 },
+            { name: "Address", type: "text", width: 200 },
+            { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
+            { name: "Married", type: "checkbox", title: "Is Married" }
+        ]
+    });
+  });
+</script>
+
+<style>
+  .cell {
+    border: 1px solid #000; /* Add a 1px solid black border around each cell */
+    padding: 5px; /* Add padding to the cells for better spacing */
+  }
+</style>
+
+</body>
+</html>
