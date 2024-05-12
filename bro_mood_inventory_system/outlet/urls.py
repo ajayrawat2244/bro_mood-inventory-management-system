@@ -1,8 +1,9 @@
 # urls.py
 from django.urls import path
-from .views import item_list_view
+from .views import *
 
 urlpatterns = [
-    path('items/', item_list_view, name='item-list'),
+    path('list', list, name='outlet-list'),
+    path('add-outlet', add_outlet, name='add-outlet')
     # other URL patterns...
 ]

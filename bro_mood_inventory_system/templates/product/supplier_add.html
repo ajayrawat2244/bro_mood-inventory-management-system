@@ -60,7 +60,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Add Product</h1>
+            <h1>Add Supplier</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -81,43 +81,35 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Product</h3>
+                <h3 class="card-title">Supplier</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="POST" action="{% url 'add-product' %}">
+              <form method="POST" action="{% url 'add-supplier' %}">
                 {% csrf_token %}
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail2">Name</label>
-                    <input type="text" name="name" class="form-control" id="exampleInputEmail2" placeholder="Enter name">
+                    <label for="exampleInputEmail4">Name</label>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail4" placeholder="Enter name">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword2">Description</label>
-                    <input type="textarea" name="description" class="form-control" id="exampleInputPassword2" placeholder="Enter Description">
+                    <label for="exampleInputPassword4">Contact Person</label>
+                    <input type="text" name="contact_person" class="form-control" id="exampleInputPassword4" placeholder="contact person ">
                   </div>
 
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Category</label>
-                    <input type="text" name="category" class="form-control" id="exampleInputEmail1" placeholder="Enter Category">
+                    <label for="exampleInputEmail1">Contact_information</label>
+                    <input type="text" name="contact_information" class="form-control" id="exampleInputEmail1" placeholder="Enter information">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Base Price</label>
-                    <input type="number" name="base_price" class="form-control" id="exampleInputPassword1" placeholder="Enter Base price">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword">Reorder level</label>
-                    <input type="number" min="0" name="reorder_level" class="form-control" id="exampleInputPassword" placeholder="Enter Reorder level">
-                  </div>
-                  <div class="form-group">
-                    <label for="dropdown">Supplier</label>
-                    <select name="supplier" class="form-control" id="dropdown" placeholder="Choose Supplier">
-                      {% for option in options %}
-                      <option value="{{ option }}">{{ option }}</option>
-                      {% endfor %}
-                    </select>
+                    <label for="exampleInputPassword1">Address</label>
+                    <input type="text" name="address" class="form-control" id="exampleInputPassword1" placeholder="Address">
                   </div>
                 </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword5">Payment terms</label>
+                    <input type="text" name="payment_terms" class="form-control" id="exampleInputPassword5" placeholder="Payment terms">
+                  </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
