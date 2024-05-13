@@ -125,20 +125,17 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                    {% for product in product_list %}
                         <tr>
-                            <td>Jordan Max</td>
-                            <td>Very premium quality</td>
-                            <td>Footwear</td>
-                            <td>(RS)425</td>
-                            <td>Mohan Garden</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.base_price }}</td>
+                            <td>{{ product.supplier.name }}</td>
                         </tr>
-                        <tr>
-                            <td>Zoom Air</td>
-                            <td>OK quality</td>
-                            <td>Footwear</td>
-                            <td>(RS)255</td>
-                            <td>Mohan Garden</td>
-                        </tr>
+
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

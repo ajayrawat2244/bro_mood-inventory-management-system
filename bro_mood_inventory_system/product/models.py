@@ -1,12 +1,12 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     category = models.CharField(max_length=50)
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
-    reorder_level = models.PositiveIntegerField()
+    reorder_level = models.PositiveIntegerField(default=0)
     supplier = models.ForeignKey('Supplier', on_delete=models.CASCADE)
 
 
@@ -16,6 +16,8 @@ class Supplier(models.Model):
     contact_information = models.CharField(max_length=100)
     address = models.TextField()
     payment_terms = models.CharField(max_length=100)
+    def __str__(self):
+        return (self.name)
 
 class ProductVariant(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)

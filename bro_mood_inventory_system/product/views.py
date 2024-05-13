@@ -19,19 +19,23 @@ def add_supplier(request):
         return HttpResponse("supplier added")
     return render(request, 'product/supplier_add.html')
 def add_product(request):
-    options = Supplier.objects.values_list('name', flat=True)
+    options = Supplier.objects.all()
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
         category = request.POST.get("category")
         base_price = request.POST.get("base_price")
-        reorder_level = request.POST.get("reorder_level")
-        supplier = request.POST.get("supplier")
-        product = Product.objects.create(name=name, description=description, category=category, base_price=base_price, reorder_level=reorder_level, supplier=supplier)
+        #reorder_level = request.POST.get("reorder_level")
+        supplier_id = int(request.POST.get("supplier"))
+        supplier = Supplier.objects.get(id=supplier_id)
+        print(Supplier)
+        product = Product(name=name, description=description, category=category, base_price=base_price, supplier=supplier)
         product.save()
+
     return render(request, 'product/product_add.html',{'options': options})
 
 def product_list(request):
-    return render(request, 'product/product_list.html')
+    product_list = Product.objects.all()
+    return render(request, 'product/product_lst.html', {'product_list':product_list})
 
 # Create your views here.
