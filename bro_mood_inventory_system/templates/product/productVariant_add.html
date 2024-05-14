@@ -5,7 +5,7 @@
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BM Inventory | Dashboard</title>
+  <title>AdminLTE 3 | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -54,18 +54,18 @@
 
   <!-- Content Wrapper. Contains page content -->
 
-  <div class="content-wrapper">
+ <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Product</h1>
+            <h1>Add Product Variant</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Product</li>
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Add</li>
             </ol>
           </div>
         </div>
@@ -74,99 +74,55 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Product</h3>
-            <a href="/product/add-product"><button type="button" class="btn btn-primary float-right">Add</button>
-            <div class="clearfix"></div>
+      <div class="container-fluid">
+        <div class="row">
+          <!-- left column -->
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Product Variant</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="POST" action="{% url 'add-productVariant' %}">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="dropdown">Product</label>
+                    <select name="product" class="form-control" id="dropdown" placeholder="select product">
+                      {% for option in option2 %}
+                      <option value="{{ option.id }}">{{ option }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail2">Name</label>
+                    <input type="text" name="name" class="form-control" id="exampleInputEmail2" placeholder="Enter name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Value</label>
+                    <input type="text" name="value" class="form-control" id="exampleInputEmail1" placeholder="Enter value">
+                  </div>
+<!--                  <div class="form-group">-->
+<!--                    <label for="exampleInputPassword">Reorder level</label>-->
+<!--                    <input type="number" min="0" name="reorder_level" class="form-control" id="exampleInputPassword" placeholder="Enter Reorder level">-->
+<!--                  </div>-->
+                </div>
+                <!-- /.card-body -->
 
-        </div>
-        <!-- /.card-header -->
-<!--        <div class="card-body">-->
-<!--          <div id="jsGrid1">-->
-<!--            <div class="container">-->
-<!--              <div class="row row-cols-5">-->
-<!--                <div class="col" style=""><b>Name</b></div>-->
-<!--                <div class="col"><b>Description</b></div>-->
-<!--                <div class="col"><b>Category</b></div>-->
-<!--                <div class="col"><b>Base Price</b></div>-->
-<!--                <div class="col"><b>Supplier</b></div>-->
-<!--            </div>-->
-
-<!--              <div class="row row-cols-5">-->
-<!--                <div class="col">Jordan Max</div>-->
-<!--                <div class="col">Very premium quality</div>-->
-<!--                <div class="col">Foot wear</div>-->
-<!--                <div class="col">(RS)425</div>-->
-<!--                <div class="col">Mohan Garden</div>-->
-<!--            </div>-->
-
-<!--              <div class="row row-cols-5">-->
-<!--                <div class="col">Zoom Air</div>-->
-<!--                <div class="col">OK quality</div>-->
-<!--                <div class="col">Foot wear</div>-->
-<!--                <div class="col">(RS)255</div>-->
-<!--                <div class="col">Mohan Garden</div>-->
-<!--            </div>-->
-
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-        <!-- /.card-body -->
-
-         <div class="container">
-           <div class="row">
-            <div class="col">
-                <table class="table table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Base Price</th>
-                            <th>Supplier</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    {% for product in product_list %}
-                        <tr>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.base_price }}</td>
-                            <td>{{ product.supplier.name }}</td>
-                        </tr>
-
-                    {% endfor %}
-                    </tbody>
-                </table>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
             </div>
-        </div>
-    </div>
+            <!-- /.card -->
 
-         <div class="row">
-            <div class="col">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+          </div>
 
-      </div>
-      <!-- /.card -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
@@ -217,34 +173,5 @@
 <script src="{% static 'dist/js/demo.js' %}" ></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src= "{% static 'dist/js/pages/dashboard.js' %}"></script>
-<script>
-  $(function () {
-    $("#jsGrid1").jsGrid({
-        height: "100%",
-        width: "100%",
-
-        sorting: true,
-        paging: true,
-
-        data: db.clients,
-
-        fields: [
-            { name: "Name", type: "text", width: 150 },
-            { name: "Age", type: "number", width: 50 },
-            { name: "Address", type: "text", width: 200 },
-            { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
-            { name: "Married", type: "checkbox", title: "Is Married" }
-        ]
-    });
-  });
-</script>
-
-<style>
-  .cell {
-    border: 1px solid #000; /* Add a 1px solid black border around each cell */
-    padding: 5px; /* Add padding to the cells for better spacing */
-  }
-</style>
-
 </body>
 </html>
