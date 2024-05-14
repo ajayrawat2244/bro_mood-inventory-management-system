@@ -179,7 +179,7 @@
 
                          {% if product_list.has_next %}
                         <li class="page-item {% if product_list.number == total_page %} active {% endif %}">
-                            <a class="page-link" href="/product/list?page={{ total_page }}">Last</a>
+                            <a class="page-link" href="/product/list?page={{ num_pages }}">Last</a>
                         </li>
                         <li class="page-item {% if product_list.number == product_list.next_page_number %} active {% endif %}">
                             <a class="page-link" href="/product/list?page={{ product_list.next_page_number }}">Next</a>
