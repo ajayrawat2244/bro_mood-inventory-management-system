@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     {% load static %}
 
@@ -73,11 +73,13 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+   <form method="POST" action="{% url 'add-productVariant' %}" enctype="multipart/form-data">
+     {% csrf_token %}
+     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <!-- left column -->
-          <div class="col-md-12">
+          <div class="col-md-6">
             <!-- general form elements -->
             <div class="card card-primary">
               <div class="card-header">
@@ -85,8 +87,8 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="POST" action="{% url 'add-productVariant' %}">
-                {% csrf_token %}
+
+
                 <div class="card-body">
                   <div class="form-group">
                     <label for="dropdown">Product</label>
@@ -97,33 +99,61 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail2">Name</label>
-                    <input type="text" name="name" class="form-control" id="exampleInputEmail2" placeholder="Enter name">
+                    <label for="exampleInputEmail2">Supplier Price</label>
+                    <input type="number" name="supplier_price" class="form-control" id="exampleInputEmail2" placeholder="Supplier Price">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Value</label>
-                    <input type="text" name="value" class="form-control" id="exampleInputEmail1" placeholder="Enter value">
+                    <label for="exampleInputEmail1">Selling Price</label>
+                    <input type="number" name="selling_price" class="form-control" id="exampleInputEmail1" placeholder="Selling Price">
                   </div>
-<!--                  <div class="form-group">-->
-<!--                    <label for="exampleInputPassword">Reorder level</label>-->
-<!--                    <input type="number" min="0" name="reorder_level" class="form-control" id="exampleInputPassword" placeholder="Enter Reorder level">-->
-<!--                  </div>-->
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Consumer Price</label>
+                    <input type="number" name="customer_price" class="form-control" id="exampleInputEmail1" placeholder="Consume Price">
+                  </div>
                 </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
             </div>
-            <!-- /.card -->
-
           </div>
 
+          <div class="col-md-6">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Product Variant</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+
+
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail2">Color</label>
+                    <input type="text" name="color" class="form-control" id="exampleInputEmail2" placeholder="color">
+
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail2">Size</label>
+                    <input type="text" name="size_variant" class="form-control" id="exampleInputEmail2" placeholder="Enter sizes">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">weight</label>
+                    <input type="number" name="weight" class="form-control" id="exampleInputEmail1" placeholder="Enter weight">
+                  </div>
+                  <div class="form-group">
+                   <label for="exampleInputEmail1">Choose Image</label>
+                  <input type="file" name="image" class="form-control" id="exampleInputEmail1">
+                </div>
+                </div>
+               <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+          </div>
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
+
+   </form>
     <!-- /.content -->
   </div>
 
