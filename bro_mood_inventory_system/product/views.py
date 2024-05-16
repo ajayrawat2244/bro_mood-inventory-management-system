@@ -23,7 +23,7 @@ def add_supplier(request):
                                            payment_terms=payment_terms, mobile=mobile)
         supplier.save()
         return redirect('/product/supplier-list')
-    return render(request, 'product/supplier_add.html')
+    return render(request, 'supplier/supplier_add.html')
 
 
 def add_product(request):
@@ -64,8 +64,18 @@ def product_list(request):
 
 
 def supplier_list(request):
+    records_per_page = 10
     supplier_list = Supplier.objects.all()
-    return render(request, 'product/supplier_list.html', {'supplier_list': supplier_list})
+    paginator = Paginator(supplier_list, records_per_page)
+    page_number = request.GET.get('page')
+    total_page = paginator.num_pages
+    records_for_page = paginator.get_page(page_number)
+    total_page_list = [n + 1 for n in range(total_page)]
+    data = {
+        'supplier_list': records_for_page, "num_pages": total_page,
+        "total_page_list": total_page_list, "page_number": page_number
+    }
+    return render(request, 'supplier/supplier_list.html', data)
 
 
 def add_productVariant(request):

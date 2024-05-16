@@ -79,7 +79,7 @@
           <h3 class="card-title">Supplier</h3>
             <a href="/product/add-supplier"><button type="button" class="btn btn-primary float-right">Add</button>
             <div class="clearfix"></div>
-
+            </a>
         </div>
         <!-- /.card-header -->
 <!--        <div class="card-body">-->
@@ -125,6 +125,8 @@
                             <th>contact information</th>
                             <th>address</th>
                             <th>payment terms</th>
+                            <th>more options </th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -136,6 +138,20 @@
                             <td>{{ supplier.contact_information }}</td>
                             <td>{{ supplier.address }}</td>
                             <td>{{ supplier.payment_terms }}</td>
+                            <td>
+                                <div class="container mt-1">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                          <a class="dropdown-item" href="#"><i class="fas fa-edit mr-2"></i>Edit</a>
+                                          <a class="dropdown-item" href="#"><i class="fas fa-trash-alt mr-2"></i>Delete</a>
+                                          <a class="dropdown-item" href="#"><i class="fas fa-info-circle mr-2"></i>Details</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
 
                     {% endfor %}
@@ -144,8 +160,37 @@
             </div>
         </div>
     </div>
+          <div class="row">
+            <div class="col">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {% if supplier_list.has_previous %}
+                        <li class="page-item {% if supplier_list.number == 1 %} active {% endif %}">
+                            <a class="page-link" href="/product/sipplier-list?page=1" tabindex="-1" >First</a>
+                        </li>
+                        <li class="page-item {% if supplier_list.number == supplier_list.previous_page_number  %} active {% endif %}" aria-current="page">
+                            <a class="page-link" href="/product/supplier-list?page={{ supplier_list.previous_page_number }}">Previous</a>
+                        </li>
+                        {% endif %}
 
-         <div class="row">
+                        {% for i in total_page_list %}
+                        <li class="page-item {% if supplier_list.number == i %} active {% endif %}"><a class="page-link" href="/product/supplier-list?page={{ i }}">{{ i }}</a></li>
+                        {% endfor %}
+
+                         {% if supplier_list.has_next %}
+                        <li class="page-item {% if supplier_list.number == total_page %} active {% endif %}">
+                            <a class="page-link" href="/product/supplier-list?page={{ total_page }}">Last</a>
+                        </li>
+                        <li class="page-item {% if supplier_list.number == supplier_list.next_page_number %} active {% endif %}">
+                            <a class="page-link" href="/product/supplier-list?page={{ supplier_list.next_page_number }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+       <!--  <div class="row">
             <div class="col">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
@@ -166,7 +211,8 @@
         </div>
 
       </div>
-      <!-- /.card -->
+       /.card -->
+      </div>
     </section>
     <!-- /.content -->
   </div>
