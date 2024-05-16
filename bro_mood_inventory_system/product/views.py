@@ -8,7 +8,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def item_list_view(request):
     return render(request, 'product/product_add.html')
 
-
 def add_supplier(request):
     if request.method == "POST":
         name = request.POST.get("name")
