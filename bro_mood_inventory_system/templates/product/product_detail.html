@@ -171,10 +171,9 @@
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label class="btn btn-default text-center">
                   <input type="radio" name="color_option" id="color_option_b1" autocomplete="off">
-                  <span class="text-m">Supplier Price</span>
                   <br>
                   <h4 class="mt-0">
-                    <small><b> {{ product_variant.product.supplier.name }}</b> is the Supplier, located at <b>{{ product_variant.product.supplier.address }}</b> </small><br>
+                    <small><b> {{ product_variant.supplier}}</b> is the Supplier, located at <b>{{ product_variant.product.supplier.address }}</b> </small><br>
                     <small>The contact person is <b>{{ product_variant.product.supplier.contact_person }}</b> </small>
                   </h4>
                 </label>
@@ -193,7 +192,6 @@
 <!--                  Add to Wishlist-->
 <!--                </div>-->
 <!--              </div>-->
-
               <div class="mt-4 product-share">
                 <a href="#" class="text-gray">
                   <i class="fab fa-facebook-square fa-2x"></i>

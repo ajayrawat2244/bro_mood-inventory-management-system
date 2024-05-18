@@ -82,6 +82,8 @@ def add_productVariant(request):
         product_id = int(request.POST.get("product"))
         product = Product.objects.get(id=product_id)
         image = request.FILES.get('image')
+        supplier_id = int(request.POST.get("supplier"))
+        supplier = Supplier.objects.get(id=supplier_id)
 
         # name = request.POST.get("name")
         color = request.POST.get("color")
@@ -92,7 +94,8 @@ def add_productVariant(request):
         customer_price = request.POST.get("customer_price")
         productVariant = ProductVariant(
             product=product, image=image, color=color, size_variant=size_variant,
-            supplier_price=supplier_price, selling_price=selling_price, customer_price=customer_price
+            supplier_price=supplier_price, selling_price=selling_price, customer_price=customer_price,
+            supplier = supplier
         )
         productVariant.save()
         productVariant.image.name = f"{productVariant.image.name}_{productVariant.id}"
