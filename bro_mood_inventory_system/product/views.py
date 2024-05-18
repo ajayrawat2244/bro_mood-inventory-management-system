@@ -26,7 +26,6 @@ def add_supplier(request):
 
 
 def add_product(request):
-    options = Supplier.objects.all()
     if request.method == "POST":
         name = request.POST.get("name")
         description = request.POST.get("description")
@@ -34,14 +33,13 @@ def add_product(request):
         base_price = request.POST.get("base_price")
         brand = request.POST.get("brand")
         # reorder_level = request.POST.get("reorder_level")
-        supplier_id = int(request.POST.get("supplier"))
-        supplier = Supplier.objects.get(id=supplier_id)
-        print(Supplier)
-        product = Product(name=name, description=description, category=category, base_price=base_price,
-                          supplier=supplier, brand=brand)
+        # supplier_id = int(request.POST.get("supplier"))
+        # supplier = Supplier.objects.get(id=supplier_id)
+        # print(Supplier)
+        product = Product(name=name, description=description, category=category, brand=brand)
         product.save()
         return redirect('/product/list')
-    return render(request, 'product/product_add.html', {'options': options})
+    return render(request, 'product/product_add.html')
 
 
 def product_list(request):
@@ -79,6 +77,7 @@ def supplier_list(request):
 
 def add_productVariant(request):
     option2 = Product.objects.all()
+    supplier_lst = Supplier.objects.all()
     if request.method == 'POST':
         product_id = int(request.POST.get("product"))
         product = Product.objects.get(id=product_id)
@@ -98,7 +97,8 @@ def add_productVariant(request):
         productVariant.save()
         productVariant.image.name = f"{productVariant.image.name}_{productVariant.id}"
         return redirect('/product/productVariant-list')
-    return render(request, 'product/productVariant_add.html', {'option2': option2})
+    print(supplier_lst[0])
+    return render(request, 'product/productVariant_add.html', {'option2': option2, "supplier_lst": supplier_lst})
 
 
 def productVariant_list(request):
