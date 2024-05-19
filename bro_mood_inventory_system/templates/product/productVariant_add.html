@@ -110,6 +110,14 @@
                     <label for="exampleInputEmail1">Consumer Price</label>
                     <input type="number" name="customer_price" class="form-control" id="exampleInputEmail1" placeholder="Consume Price">
                   </div>
+                  <div class="form-group">
+                    <label for="dropdown">Supplier </label>
+                    <select name="supplier" class="form-control" id="dropdown" placeholder="Choose Supplier">
+                      {% for option in supplier_lst %}
+                      <option value="{{ option.id }}">{{ option }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
                 </div>
             </div>
           </div>
