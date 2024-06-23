@@ -92,27 +92,27 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="dropdown">Product</label>
-                    <select name="product" class="form-control" id="dropdown" placeholder="select product">
+                    <select name="product" class="form-control" id="dropdown1" placeholder="select product" required>
                       {% for option in option2 %}
                       <option value="{{ option.id }}">{{ option }}</option>
                       {% endfor %}
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail2">Supplier Price</label>
-                    <input type="number" name="supplier_price" class="form-control" id="exampleInputEmail2" placeholder="Supplier Price">
+                    <label for="exampleInputEmail5">Supplier Price</label>
+                    <input type="number" name="supplier_price" class="form-control" id="exampleInputEmail5" placeholder="Supplier Price" required>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Selling Price</label>
-                    <input type="number" name="selling_price" class="form-control" id="exampleInputEmail1" placeholder="Selling Price">
+                    <label for="exampleInputEmail6">Selling Price</label>
+                    <input type="number" name="selling_price" class="form-control" id="exampleInputEmail6" placeholder="Selling Price" required>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Consumer Price</label>
-                    <input type="number" name="customer_price" class="form-control" id="exampleInputEmail1" placeholder="Consume Price">
+                    <label for="exampleInputEmail7">Consumer Price</label>
+                    <input type="number" name="customer_price" class="form-control" id="exampleInputEmail7" placeholder="Consume Price" required>
                   </div>
                   <div class="form-group">
                     <label for="dropdown">Supplier </label>
-                    <select name="supplier" class="form-control" id="dropdown" placeholder="Choose Supplier">
+                    <select name="supplier" class="form-control" id="dropdown" placeholder="Choose Supplier" required>
                       {% for option in supplier_lst %}
                       <option value="{{ option.id }}">{{ option }}</option>
                       {% endfor %}
@@ -134,21 +134,21 @@
 
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail2">Color</label>
-                    <input type="text" name="color" class="form-control" id="exampleInputEmail2" placeholder="color">
+                    <label for="exampleInputEmail8">Color</label>
+                    <input type="text" name="color" class="form-control" id="exampleInputEmail8" placeholder="color" required>
 
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail2">Size</label>
-                    <input type="text" name="size_variant" class="form-control" id="exampleInputEmail2" placeholder="Enter sizes">
+                    <input type="text" name="size_variant" class="form-control" id="exampleInputEmail2" placeholder="Enter sizes" required>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputEmail1">weight</label>
-                    <input type="number" name="weight" class="form-control" id="exampleInputEmail1" placeholder="Enter weight">
+                    <label for="exampleInputEmail9">weight</label>
+                    <input type="number" name="weight" class="form-control" id="exampleInputEmail9" placeholder="Enter weight" required>
                   </div>
                   <div class="form-group">
-                   <label for="exampleInputEmail1">Choose Image</label>
-                  <input type="file" name="image" class="form-control" id="exampleInputEmail1">
+                   <label for="exampleInputEmail">Choose Image</label>
+                  <input type="file" name="image" class="form-control" id="exampleInputEmail" required>
                 </div>
                 </div>
                <div class="card-footer">

@@ -1,13 +1,16 @@
 # views.py
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
+@login_required(login_url='login')
 def item_list_view(request):
     return render(request, 'product/product_add.html')
 
+@login_required(login_url='login')
 def add_supplier(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -24,7 +27,7 @@ def add_supplier(request):
         return redirect('/product/supplier-list')
     return render(request, 'supplier/supplier_add.html')
 
-
+@login_required(login_url='login')
 def add_product(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -41,14 +44,11 @@ def add_product(request):
         return redirect('/product/list')
     return render(request, 'product/product_add.html')
 
-
+@login_required(login_url='login')
 def product_list(request):
     records_per_page = 10
-
     product_list = Product.objects.all()
-
     paginator = Paginator(product_list, records_per_page)
-
     page_number = request.GET.get('page')
     total_page = paginator.num_pages
     records_for_page = paginator.get_page(page_number)
@@ -59,7 +59,7 @@ def product_list(request):
     }
     return render(request, 'product/product_lst.html', data)
 
-
+@login_required(login_url='login')
 def supplier_list(request):
     records_per_page = 10
     supplier_list = Supplier.objects.all()
@@ -74,7 +74,7 @@ def supplier_list(request):
     }
     return render(request, 'supplier/supplier_list.html', data)
 
-
+@login_required(login_url='login')
 def add_productVariant(request):
     option2 = Product.objects.all()
     supplier_lst = Supplier.objects.all()
@@ -84,10 +84,8 @@ def add_productVariant(request):
         image = request.FILES.get('image')
         supplier_id = int(request.POST.get("supplier"))
         supplier = Supplier.objects.get(id=supplier_id)
-
         # name = request.POST.get("name")
         color = request.POST.get("color")
-
         size_variant = request.POST.get("size_variant")
         supplier_price = request.POST.get("supplier_price")
         selling_price = request.POST.get("selling_price")
@@ -103,7 +101,7 @@ def add_productVariant(request):
     print(supplier_lst[0])
     return render(request, 'product/productVariant_add.html', {'option2': option2, "supplier_lst": supplier_lst})
 
-
+@login_required(login_url='login')
 def productVariant_list(request):
     records_per_page = 10
 
@@ -123,7 +121,7 @@ def productVariant_list(request):
 
     return render(request, 'product/productVariant_list.html', data)
 
-
+@login_required(login_url='login')
 def product_variant_detail(request):
     product_variant_id = request.GET.get("product_variant_id")
     product_variant = ProductVariant.objects.get(id=product_variant_id)

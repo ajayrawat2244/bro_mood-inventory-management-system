@@ -60,12 +60,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Product variant</h1>
+            <h1>Warehouses</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Product variant</li>
+              <li class="breadcrumb-item active">Warehouse</li>
             </ol>
           </div>
         </div>
@@ -76,8 +76,8 @@
     <section class="content">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Product Variants</h3>
-            <a href="/product/add-productVariant"><button type="button" class="btn btn-primary float-right">Add</button></a>
+          <h3 class="card-title">Warehouse</h3>
+            <a href="/warehouse/add-warehouse"><button type="button" class="btn btn-primary float-right">Add</button></a>
             <div class="clearfix"></div>
 
         </div>
@@ -120,24 +120,26 @@
                 <table class="table table-bordered">
                     <thead class="thead-light">
                         <tr>
-                            <th>Product Name</th>
-                            <th>Color</th>
-                            <th>Supplier Price</th>
-                            <th>Selling Price</th>
-                            <th>Image</th>
-                            <th></th>
+                            <th>Name</th>
+                            <th>State</th>
+                            <th>District</th>
+                            <th>City</th>
+                            <th>Pincode</th>
+                            <th>contact Info.</th>
+                            <th>abc</th>
 
                         </tr>
                     </thead>
                     <tbody>
 
-                    {% for productVariant in product_list %}
+                    {% for warehouse in warehouse_list %}
                         <tr>
-                            <td>{{ productVariant.product.name }}</td>
-                            <td>{{ productVariant.color }}</td>
-                            <td>{{ productVariant.supplier_price }}</td>
-                            <td>{{ productVariant.selling_price }}</td>
-                            <td>{{ productVariant.image}}</td>
+                            <td>{{ warehouse.name }}</td>
+                            <td>{{ warehouse.state }}</td>
+                            <td>{{ warehouse.district }}</td>
+                            <td>{{ warehouse.city }}</td>
+                            <td>{{ warehouse.pincode}}</td>
+                            <td>{{ warehouse.contact_information}}</td>
                             <td>
                                 <div class="container mt-1">
                                     <div class="dropdown">
@@ -145,50 +147,110 @@
                                           <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<!--                                          <a class="dropdown-item" href="#"><i class="fas fa-edit mr-2"></i>Edit</a>-->
-<!--                                          <a class="dropdown-item" href="#"><i class="fas fa-trash-alt mr-2"></i>Delete</a>-->
-                                          <a class="dropdown-item" href="/product/product-variant-detail?product_variant_id={{ productVariant.id }}"><i class="fas fa-info-circle mr-2"></i>Details</a>
+                                          <a class="dropdown-item" href="#"><i class="fas fa-edit mr-2"></i>Edit</a>
+                                          <a class="dropdown-item" href="#"><i class="fas fa-trash-alt mr-2"></i>Delete</a>
+                                          <a class="dropdown-item" href="#"><i class="fas fa-info-circle mr-2"></i>Details</a>
                                         </div>
                                     </div>
                                 </div>
                             </td>
                         </tr>
+
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-                 <div class="row">
+         <div class="row">
             <div class="col">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        {% if product_list.has_previous %}
-                        <li class="page-item {% if product_list.number == 1 %} active {% endif %}">
-                            <a class="page-link" href="/product/productVariant-list?page=1" tabindex="-1" >First</a>
+                        {% if warehouse_list.has_previous %}
+                        <li class="page-item {% if warehouse_list.number == 1 %} active {% endif %}">
+                            <a class="page-link" href="/warehouse/list?page=1" tabindex="-1" >First</a>
                         </li>
-                        <li class="page-item {% if product_list.number == product_list.previous_page_number  %} active {% endif %}" aria-current="page">
-                            <a class="page-link" href="/product/productVariant-list?page={{ product_list.previous_page_number }}">Previous</a>
+                        <li class="page-item {% if warehouse_list.number == warehouse_list.previous_page_number  %} active {% endif %}" aria-current="page">
+                            <a class="page-link" href="/warehouse/list?page={{ warehouse_list.previous_page_number }}">Previous</a>
                         </li>
                         {% endif %}
 
                         {% for i in total_page_list %}
-                        <li class="page-item {% if product_list.number == i %} active {% endif %}"><a class="page-link" href="/product/productVariant-list?page={{ i }}">{{ i }}</a></li>
+                        <li class="page-item {% if warehouse_list.number == i %} active {% endif %}"><a class="page-link" href="/warehouse/list?page={{ i }}">{{ i }}</a></li>
                         {% endfor %}
 
-                         {% if product_list.has_next %}
-                        <li class="page-item {% if product_list.number == total_page %} active {% endif %}">
-                            <a class="page-link" href="/product/productVariant-list?page={{ num_pages }}">Last</a>
+                         {% if warehouse_list.has_next %}
+                        <li class="page-item {% if warehouse_list.number == total_page %} active {% endif %}">
+                            <a class="page-link" href="/warehouse/list?page={{ num_pages }}">Last</a>
                         </li>
-                        <li class="page-item {% if product_list.number == product_list.next_page_number %} active {% endif %}">
-                            <a class="page-link" href="/product/productVariant-list?page={{ product_list.next_page_number }}">Next</a>
+                        <li class="page-item {% if warehouse_list.number == warehouse_list.next_page_number %} active {% endif %}">
+                            <a class="page-link" href="/warehouse/list?page={{ warehouse_list.next_page_number }}">Next</a>
                         </li>
                         {% endif %}
                     </ul>
                 </nav>
             </div>
         </div>
+
+<!--          <div class="row">-->
+<!--            <div class="col">-->
+<!--                <nav aria-label="Page navigation example">-->
+<!--                    <ul class="pagination justify-content-center">-->
+<!--                        <li class="page-item disabled">-->
+<!--                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>-->
+<!--                        </li>-->
+<!--                        <li class="page-item active" aria-current="page">-->
+<!--                            <a class="page-link" href="#">1</a>-->
+<!--                        </li>-->
+<!--                        <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                        <li class="page-item">-->
+<!--                            <a class="page-link" href="#">Next</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </nav>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--          <div class="row">-->
+<!--    <div class="col">-->
+<!--        <nav aria-label="Page navigation example">-->
+<!--            <ul class="pagination justify-content-center">-->
+<!--                &lt;!&ndash; Previous page link &ndash;&gt;-->
+<!--                {% if records_for_page.has_previous %}-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" href="?page={{ records_for_page.previous_page_number }}" tabindex="-1" aria-disabled="true">Previous</a>-->
+<!--                </li>-->
+<!--                {% else %}-->
+<!--                <li class="page-item disabled">-->
+<!--                    <span class="page-link">Previous</span>-->
+<!--                </li>-->
+<!--                {% endif %}-->
+
+<!--                &lt;!&ndash; Page links &ndash;&gt;-->
+<!--                {% for num in records_for_page.paginator.page_range %}-->
+<!--                <li class="page-item {% if records_for_page.number == num %}active{% endif %}">-->
+<!--                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>-->
+<!--                </li>-->
+<!--                {% endfor %}-->
+
+<!--                &lt;!&ndash; Next page link &ndash;&gt;-->
+<!--                {% if records_for_page.has_next %}-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" href="?page={{ records_for_page.next_page_number }}">Next</a>-->
+<!--                </li>-->
+<!--                {% else %}-->
+<!--                <li class="page-item disabled">-->
+<!--                    <span class="page-link">Next</span>-->
+<!--                </li>-->
+<!--                {% endif %}-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </div>-->
+<!--</div>-->
+
+
 
       </div>
       <!-- /.card -->
@@ -242,34 +304,6 @@
 <script src="{% static 'dist/js/demo.js' %}" ></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src= "{% static 'dist/js/pages/dashboard.js' %}"></script>
-<script>
-  $(function () {
-    $("#jsGrid1").jsGrid({
-        height: "100%",
-        width: "100%",
-
-        sorting: true,
-        paging: true,
-
-        data: db.clients,
-
-        fields: [
-            { name: "Name", type: "text", width: 150 },
-            { name: "Age", type: "number", width: 50 },
-            { name: "Address", type: "text", width: 200 },
-            { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
-            { name: "Married", type: "checkbox", title: "Is Married" }
-        ]
-    });
-  });
-</script>
-
-<style>
-  .cell {
-    border: 1px solid #000; /* Add a 1px solid black border around each cell */
-    padding: 5px; /* Add padding to the cells for better spacing */
-  }
-</style>
 
 </body>
 </html>
