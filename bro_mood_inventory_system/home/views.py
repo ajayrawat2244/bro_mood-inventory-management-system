@@ -40,7 +40,16 @@ def register(request):
                                    email=email)
         user.set_password(password)
         user.save()
-        return redirect('login')
+        user = authenticate(request, username=username, password=password)
+
+        # Log in the user
+        if user is not None:
+            auth_login(request, user)
+            return redirect('/')
+        else:
+            return render(request, 'register.html', {'error': 'Registration successful but unable to log in.'})
+    else:
+        return render(request, 'register.html')
     return render(request, 'register.html')
 
 # Create your views here.
