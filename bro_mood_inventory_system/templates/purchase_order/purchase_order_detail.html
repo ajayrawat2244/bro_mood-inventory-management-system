@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BM Inventory | Dashboard</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+<!--  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">-->
+
+  <link rel="stylesheet" href="{% static 'fontawesome-free/css/all.min.css' %}">
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+<!--  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">-->
+  <link rel="stylesheet" href="{% static 'tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+<!--  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">-->
+  <link rel="stylesheet" href="{% static 'icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+<!--  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">-->
+  <link rel="stylesheet" href="{% static 'jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+<!--  <link rel="stylesheet" href="dist/css/adminlte.min.css">-->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- overlayScrollbars -->
+<!--  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">-->
+  <link rel="stylesheet" href="{% static 'overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+<!--  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">-->
+  <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+<!--  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">-->
+  <link rel="stylesheet" href="{% static 'summernote/summernote-bs4.min.css' %}">
+    <style>
+        body {
+            background-color: #f4f7f9;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h2 {
+            color: #ff6f61;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ff6f61;
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        h4 {
+            color: #2d87bb;
+            border-bottom: 2px solid #2d87bb;
+            padding-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        .text-right strong {
+            color: #ff6f61;
+        }
+        table {
+            margin-top: 20px;
+        }
+        thead th {
+            background-color: #2d87bb;
+            color: #ffffff;
+            font-weight: normal;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #f8f8f8;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        .table-bordered td, .table-bordered th {
+            border-color: #2d87bb;
+        }
+        .mt-4 {
+            margin-top: 1.5rem!important;
+        }
+        .btn-custom {
+            background-color: #ff6f61;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .btn-custom:hover {
+            background-color: #ff4a3d;
+        }
+        p, h5 {
+            margin: 0;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+
+  {% include 'basic/navbar.html' %}
+
+
+  {% include 'basic/side_bar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+    <div class="container">
+    <h2 class="text-center">Purchase Order (PO)</h2>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h5>Purchase Order Number: <span>{{ purchase_order.id }}</span></h5>
+        </div>
+        <div class="col-md-6 text-right">
+            <h5>Date: <span>[Date]</span></h5>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h4>Buyer Information:</h4>
+        <p><strong>Company Name:</strong>{{ purchase_order.warehouse.name }}</p>
+        <p><strong>Contact Person:</strong>NO CONTACT INFORMATION</p>
+        <p><strong>Address:</strong>{{ purchase_order.warehouse.city }}, {{ purchase_order.warehouse.pincode }}, {{ purchase_order.warehouse.state }}</p>
+        <p><strong>Phone:</strong>{{ purchase_order.warehouse.contact_information }}</p>
+        <p><strong>Email:</strong>NO EMAIL</p>
+    </div>
+
+    <div class="mt-4">
+        <h4>Supplier Information:</h4>
+        <p><strong>Company Name:</strong>{{ purchase_order.supplier.name }}</p>
+        <p><strong>Contact Person:</strong>{{ purchase_order.supplier.contact_person }}</p>
+        <p><strong>Address:</strong>{{ purchase_order.supplier.address }}</p>
+        <p><strong>Phone:</strong>{{ purchase_order.supplier.mobile }}</p>
+        <p><strong>Email:</strong>NO EMAIL</p>
+    </div>
+
+    <div class="mt-4">
+        <h4>Order Details:</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for option in order_item_list %}
+                <tr>
+                    <td>{{ option.product.name}}</td>
+                    <td>{{ option.description}}</td>
+                    <td>{{ option.actual_purchase }}</td>
+                    <td>{{ option.supplier_price }}</td>
+                    <td>{{ option.total_bill }}</td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <div class="text-right">
+            <p><strong>Subtotal:</strong>{{ option.last_item.total_bill }} </p>
+            <p><strong>Tax (if applicable):</strong>{{ purchase_order.tax }}</p>
+            <p><strong>Shipping Cost:</strong>{{ purchase_order.shipping_cost }}</p>
+            <p><strong>Total Amount:</strong>{{ purchase_order.total_amount }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <h4>Delivery Information:</h4>
+        <p><strong>Delivery Address:</strong>{{ purchase_order.warehouse.city}}, {{ purchase_order.warehouse.district}},
+            {{ purchase_order.warehouse.state}}, {{ purchase_order.warehouse.pincode}}</p>
+        <p><strong>Expected Delivery Date:</strong>{{ purchase_order.expected_delivery_date }}</p>
+        <p><strong>Shipping Method:</strong>{{ purchase_order.shipping_method }}</p>
+    </div>
+
+    <div class="mt-4">
+        <h4>Payment Terms:</h4>
+        <p><strong>Payment Method:</strong>{{ purchase_order.payment_method }}</p>
+        <p><strong>Payment Due Date:</strong>{{ purchase_order.payment_due_date }}</p>
+        <p><strong>Other Terms:</strong> [Any Other Payment Terms]</p>
+    </div>
+
+    <div class="mt-4">
+        <h4>Additional Notes:</h4>
+        <p>[Additional Notes or Instructions]</p>
+    </div>
+
+    <div class="mt-4">
+        <h4>Authorized Signature:</h4>
+        <p><strong>Name:</strong> [Authorized Person's Name]</p>
+        <p><strong>Title:</strong> [Authorized Person's Title]</p>
+        <p><strong>Signature:</strong> ____________________________</p>
+        <p><strong>Date:</strong> [Date]</p>
+    </div>
+
+    <div class="mt-4">
+        <h4>Terms and Conditions</h4>
+        <p>[Include any specific terms and conditions related to the purchase order]</p>
+    </div>
+
+    <div class="text-center mt-5">
+        <button class="btn btn-custom">Submit Purchase Order</button>
+    </div>
+</div>
+    <!-- Main content -->
+    <!-- /.content -->
+  </div>
+
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+
+
+<!-- jQuery -->
+<script src= "{% static 'jquery/jquery.min.js' %}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'chart.js/Chart.min.js' %}"></script>
+<!-- Sparkline -->
+<script src="{% static 'sparklines/sparkline.js' %}"></script>
+<!-- JQVMap -->
+<!--<script src="plugins/jqvmap/jquery.vmap.min.js"></script>-->
+<script src="{% static 'jqvmap/jquery.vmap.min.js' %}"></script>
+<!--<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>-->
+<script src="{% static 'jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{% static 'jquery-knob/jquery.knob.min.js' %}"></script>
+<!-- daterangepicker -->
+<script src="{% static 'moment/moment.min.js' %}"></script>
+<script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{% static 'tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<!-- Summernote -->
+<script src="{% static 'summernote/summernote-bs4.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script src="{% static 'overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.js' %}" ></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}" ></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src= "{% static 'dist/js/pages/dashboard.js' %}"></script>
+<script>
+  $(function () {
+    $("#jsGrid1").jsGrid({
+        height: "100%",
+        width: "100%",
+
+        sorting: true,
+        paging: true,
+
+        data: db.clients,
+
+        fields: [
+            { name: "Name", type: "text", width: 150 },
+            { name: "Age", type: "number", width: 50 },
+            { name: "Address", type: "text", width: 200 },
+            { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
+            { name: "Married", type: "checkbox", title: "Is Married" }
+        ]
+    });
+  });
+</script>
+
+<style>
+  .cell {
+    border: 1px solid #000; /* Add a 1px solid black border around each cell */
+    padding: 5px; /* Add padding to the cells for better spacing */
+  }
+</style>
+
+</body>
+</html>

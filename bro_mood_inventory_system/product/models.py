@@ -3,9 +3,15 @@ from django.contrib.auth.models import User
 
 
 class Product(models.Model):
+    CATEGORY_CHOICES = [
+        ('footwear', 'Footwear'),
+        ('shirt', 'Shirt'),
+        ('jeans', 'Jeans'),
+        ('t-Shirt', 'T-Shirt')
+    ]
     name = models.CharField(max_length=100)
     description = models.TextField()
-    category = models.CharField(max_length=50)
+    category = models.CharField(choices=CATEGORY_CHOICES, default='footwear', max_length=50)
     # base_price = models.DecimalField(max_digits=10, decimal_places=2)
     reorder_level = models.PositiveIntegerField(default=0)
     # supplier = models.ForeignKey('Supplier', on_delete=models.CASCADE)
@@ -44,3 +50,7 @@ class ProductVariant(models.Model):
     selling_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0)
     customer_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0)
     supplier = models.ForeignKey('Supplier', on_delete=models.CASCADE, null=True)
+
+
+    def __str__(self):
+        return self.name
