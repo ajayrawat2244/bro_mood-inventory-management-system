@@ -2,6 +2,8 @@ from django.db import models
 from warehouse.models import Warehouse
 from product.models import Supplier, Product, ProductVariant
 import datetime
+from django.contrib.auth.models import User
+
 
 class PurchaseOrder(models.Model):
     STATUS_CHOICES = [
@@ -27,6 +29,7 @@ class PurchaseOrder(models.Model):
     shipment_date = models.DateField(null=True, blank=True)
     shipping_method = models.TextField(default='xyz')
     payment_method = models.TextField(default='COD')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null= True)
 
     def update_total_amount(self):
         total_items_cost = PurchaseOrderItem.objects.filter(purchase_order=self).aggregate(

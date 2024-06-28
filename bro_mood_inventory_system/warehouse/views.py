@@ -17,7 +17,9 @@ def add_warehouse(request):
         city = request.POST.get("city")
         pincode = request.POST.get("pincode")
         contact_information = request.POST.get("contact_information")
-        warehouse = Warehouse(name=name, state=state, district=district, city=city, pincode=pincode, contact_information=contact_information)
+        user = request.user
+        warehouse = Warehouse(name=name, state=state, district=district, city=city, pincode=pincode,
+                              contact_information=contact_information, user=user)
         warehouse.save()
         return redirect('/warehouse/list')
     return render(request,'warehouse/add_warehouse.html')
@@ -25,11 +27,9 @@ def add_warehouse(request):
 @login_required(login_url='login')
 def warehouse_list(request):
     records_per_page = 10
-
-    warehouse_list = Warehouse.objects.all()
-
+    user = request.user
+    warehouse_list = Warehouse.objects.filter(user=user)
     paginator = Paginator(warehouse_list, records_per_page)
-
     page_number = request.GET.get('page')
     total_page = paginator.num_pages
     records_for_page = paginator.get_page(page_number)

@@ -17,13 +17,14 @@ def add_purchase_order(request):
     suppliers = Supplier.objects.all()
     if request.method == 'POST':
         warehouse_id = int(request.POST.get('warehouse'))
-        warehouse =Warehouse.objects.get(id=warehouse_id)
+        warehouse = Warehouse.objects.get(id=warehouse_id)
         supplier_id = int(request.POST.get('supplier'))
         supplier = Supplier.objects.get(id=supplier_id)
         order_date = request.POST.get('date')
         expected_delivery_date = request.POST.get('expectedDeliveryDate')
+        user = request.user
         purchase_order = PurchaseOrder(warehouse=warehouse, supplier=supplier, order_date=order_date,
-                                       expected_delivery_date=expected_delivery_date)
+                                       expected_delivery_date=expected_delivery_date, user=user)
         purchase_order.save()
 
         product_list = request.POST.getlist('product[]')
@@ -57,7 +58,8 @@ def get_purchase_order_details(request):
 
 @login_required(login_url='login')
 def purchase_order_list(request):
-    purchase_orders = PurchaseOrder.objects.all()
+    user = request.user
+    purchase_orders = PurchaseOrder.objects.filter(user=user)
     purchase_order_items = []
 
     for order in purchase_orders:

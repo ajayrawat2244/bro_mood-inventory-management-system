@@ -18,7 +18,9 @@ def add_outlet(request):
         city = request.POST.get("city")
         pincode = request.POST.get("pincode")
         contact_information = request.POST.get("contact_information")
-        outlet = Outlet(name=name, state=state, district=district, city=city, pincode=pincode, contact_information=contact_information)
+        user = request.user
+        outlet = Outlet(name=name, state=state, district=district, city=city, pincode=pincode,
+                        contact_information=contact_information, user=user)
         outlet.save()
 
         return redirect('/outlet/list')
@@ -27,11 +29,9 @@ def add_outlet(request):
 @login_required(login_url='login')
 def outlet_list(request):
     records_per_page = 10
-
-    outlet_list = Outlet.objects.all()
-
+    user = request.user
+    outlet_list = Outlet.objects.filter(user=user)
     paginator = Paginator(outlet_list, records_per_page)
-
     page_number = request.GET.get('page')
     total_page = paginator.num_pages
     records_for_page = paginator.get_page(page_number)

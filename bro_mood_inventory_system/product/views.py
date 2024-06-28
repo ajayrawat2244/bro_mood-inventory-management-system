@@ -4,6 +4,7 @@ from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 @login_required(login_url='login')
@@ -19,10 +20,11 @@ def add_supplier(request):
         address = request.POST.get("address")
         payment_terms = request.POST.get("payment_terms")
         mobile = request.POST.get("mobile")
+        user = request.user
         # brand = request.POST.get("brand")
         supplier = Supplier.objects.create(name=name, contact_person=contact_person,
                                            contact_information=contact_information, address=address,
-                                           payment_terms=payment_terms, mobile=mobile)
+                                           payment_terms=payment_terms, mobile=mobile, user=user)
         supplier.save()
         return redirect('/product/supplier-list')
     return render(request, 'supplier/supplier_add.html')
@@ -35,11 +37,12 @@ def add_product(request):
         category = request.POST.get("category")
         base_price = request.POST.get("base_price")
         brand = request.POST.get("brand")
+        user = request.user
         # reorder_level = request.POST.get("reorder_level")
         # supplier_id = int(request.POST.get("supplier"))
         # supplier = Supplier.objects.get(id=supplier_id)
         # print(Supplier)
-        product = Product(name=name, description=description, category=category, brand=brand)
+        product = Product(name=name, description=description, category=category, brand=brand, user=user)
         product.save()
         return redirect('/product/list')
     return render(request, 'product/product_add.html')
@@ -47,7 +50,15 @@ def add_product(request):
 @login_required(login_url='login')
 def product_list(request):
     records_per_page = 10
-    product_list = Product.objects.all()
+    user = request.user
+    query = request.GET.get('q')
+    if query:
+        product_list = Product.objects.filter(
+            Q(name=query) | Q(description=query) | Q(category=query) | Q(brand=query),
+            user=user
+        )
+    else:
+        product_list = Product.objects.filter(user=user)
     paginator = Paginator(product_list, records_per_page)
     page_number = request.GET.get('page')
     total_page = paginator.num_pages
@@ -55,14 +66,16 @@ def product_list(request):
     total_page_list = [n + 1 for n in range(total_page)]
     data = {
         'product_list': records_for_page, "num_pages": total_page,
-        "total_page_list": total_page_list, "page_number": page_number
+        "total_page_list": total_page_list, "page_number": page_number,
+        'query':query
     }
     return render(request, 'product/product_lst.html', data)
 
 @login_required(login_url='login')
 def supplier_list(request):
     records_per_page = 10
-    supplier_list = Supplier.objects.all()
+    user = request.user
+    supplier_list = Supplier.objects.all(user=user)
     paginator = Paginator(supplier_list, records_per_page)
     page_number = request.GET.get('page')
     total_page = paginator.num_pages
@@ -84,16 +97,15 @@ def add_productVariant(request):
         image = request.FILES.get('image')
         supplier_id = int(request.POST.get("supplier"))
         supplier = Supplier.objects.get(id=supplier_id)
-        # name = request.POST.get("name")
+        name = request.POST.get("name")
         color = request.POST.get("color")
         size_variant = request.POST.get("size_variant")
         supplier_price = request.POST.get("supplier_price")
         selling_price = request.POST.get("selling_price")
-        customer_price = request.POST.get("customer_price")
         productVariant = ProductVariant(
             product=product, image=image, color=color, size_variant=size_variant,
-            supplier_price=supplier_price, selling_price=selling_price, customer_price=customer_price,
-            supplier = supplier
+            supplier_price=supplier_price, selling_price=selling_price, name=name,
+            supplier=supplier
         )
         productVariant.save()
         productVariant.image.name = f"{productVariant.image.name}_{productVariant.id}"
@@ -104,11 +116,16 @@ def add_productVariant(request):
 @login_required(login_url='login')
 def productVariant_list(request):
     records_per_page = 10
-
-    product_variant_list = ProductVariant.objects.all()
-
+    user = request.user
+    query = request.GET.get('q')
+    if query:
+        product_variant_list = ProductVariant.objects.filter(
+            Q(product__name__icontains=query) |
+            Q(supplier__name__icontains=query) | Q(product__brand__icontains=query)
+        )
+    else:
+        product_variant_list = ProductVariant.objects.all()
     paginator = Paginator(product_variant_list, records_per_page)
-
     page_number = request.GET.get('page')
     print(page_number, 2222)
     total_page = paginator.num_pages
