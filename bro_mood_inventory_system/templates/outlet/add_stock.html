@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BM Inventory | Dashboard</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+<!--  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">-->
+
+  <link rel="stylesheet" href="{% static 'fontawesome-free/css/all.min.css' %}">
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+<!--  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">-->
+  <link rel="stylesheet" href="{% static 'tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+  <!-- iCheck -->
+<!--  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">-->
+  <link rel="stylesheet" href="{% static 'icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- JQVMap -->
+<!--  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">-->
+  <link rel="stylesheet" href="{% static 'jqvmap/jqvmap.min.css' %}">
+  <!-- Theme style -->
+<!--  <link rel="stylesheet" href="dist/css/adminlte.min.css">-->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- overlayScrollbars -->
+<!--  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">-->
+  <link rel="stylesheet" href="{% static 'overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  <!-- Daterange picker -->
+<!--  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">-->
+  <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
+  <!-- summernote -->
+<!--  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">-->
+  <link rel="stylesheet" href="{% static 'summernote/summernote-bs4.min.css' %}">
+    <style>
+        body {
+            background-color: #f4f7f9;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            margin-top: 50px;
+        }
+        h2 {
+            color: #ff6f61;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ff6f61;
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+        }
+        h4 {
+            color: #2d87bb;
+            border-bottom: 2px solid #2d87bb;
+            padding-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        .text-right strong {
+            color: #ff6f61;
+        }
+        table {
+            margin-top: 20px;
+        }
+        thead th {
+            background-color: #2d87bb;
+            color: #ffffff;
+            font-weight: normal;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #f8f8f8;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        .table-bordered td, .table-bordered th {
+            border-color: #2d87bb;
+        }
+        .mt-4 {
+            margin-top: 1.5rem!important;
+        }
+        .btn-custom {
+            background-color: #ff6f61;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .btn-custom:hover {
+            background-color: #ff4a3d;
+        }
+        p, h5 {
+            margin: 0;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader flex-column justify-content-center align-items-center">
+    <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
+  </div>
+
+
+  {% include 'basic/navbar.html' %}
+
+
+  {% include 'basic/side_bar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+
+    <div class="container">
+    <h2 class="text-center">add New Products Stock</h2>
+    <form method="POST" action="{% url 'add-stock' %}" id="purchaseOrderForm">
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <label for="warehouse">select outlet</label>
+                    <select name="outlet" class="form-control" id="warehouse" required>
+                        {% for options in outlet_list %}
+                      <option value="{{ options.id }}">{{ options.name }}</option>
+                      {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 text-right">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                </div>
+            </div>
+        <!--
+        <div class="mt-4">
+            <h4>Buyer Information:</h4>
+            <div class="form-group">
+                <label for="buyerCompanyName">Company Name</label>
+                <input type="text" class="form-control" id="buyerCompanyName" name="buyerCompanyName" required>
+            </div>
+            <div class="form-group">
+                <label for="buyerContactPerson">Contact Person</label>
+                <input type="text" class="form-control" id="buyerContactPerson" name="buyerContactPerson" required>
+            </div>
+            <div class="form-group">
+                <label for="buyerAddress">Address</label>
+                <input type="text" class="form-control" id="buyerAddress" name="buyerAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="buyerPhone">Phone</label>
+                <input type="text" class="form-control" id="buyerPhone" name="buyerPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="buyerEmail">Email</label>
+                <input type="email" class="form-control" id="buyerEmail" name="buyerEmail" required>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Supplier Information:</h4>
+            <div class="form-group">
+                <label for="supplierCompanyName">Company Name</label>
+                <input type="text" class="form-control" id="supplierCompanyName" name="supplierCompanyName" required>
+            </div>
+            <div class="form-group">
+                <label for="supplierContactPerson">Contact Person</label>
+                <input type="text" class="form-control" id="supplierContactPerson" name="supplierContactPerson" required>
+            </div>
+            <div class="form-group">
+                <label for="supplierAddress">Address</label>
+                <input type="text" class="form-control" id="supplierAddress" name="supplierAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="supplierPhone">Phone</label>
+                <input type="text" class="form-control" id="supplierPhone" name="supplierPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="supplierEmail">Email</label>
+                <input type="email" class="form-control" id="supplierEmail" name="supplierEmail" required>
+            </div>
+        </div>
+-->
+        <div class="mt-4">
+            <h4>new stock Details:</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>product</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Unit Price</th>
+                        <th>Customer Price</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody id="orderItems">
+
+                    <tr>
+                        <td><input type="text" class="form-control" name="product[]" required></td>
+                        <td><select name="category[]" class="form-control" required>
+                        <option value="footwear">Footwear</option>
+                        <option value="shirt">Shirt</option>
+                        <option value="jeans">Jeans</option>
+                        <option value="t-Shirt">T-Shirt</option>
+                        </select></td>
+                        <td><input type="number" class="form-control" name="quantity[]" required></td>
+                        <td><input type="number" class="form-control" name="unitPrice[]" required></td>
+                        <td><input type="number" class="form-control" name="customerPrice[]" required></td>
+                        <td><input type="text" class="form-control" name="reference[]" required></td>
+                    </tr>
+                    <!-- Repeat as needed -->
+                </tbody>
+            </table>
+            <button type="button" class="btn btn-custom" onclick="addItem()">Add Item</button>
+        </div>
+<!--
+        <div class="text-right mt-4">
+            <div class="form-group">
+                <label for="subtotal">Subtotal</label>
+                <input type="number" class="form-control" id="subtotal" name="subtotal" >
+            </div>
+            <div class="form-group">
+                <label for="totalAmount">Total Amount</label>
+                <input type="number" class="form-control" id="totalAmount" name="totalAmount">
+            </div>
+        </div>
+
+<!--
+        <div class="mt-4">
+            <h4>Payment Terms:</h4>
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method</label>
+                <input type="text" class="form-control" id="paymentMethod" name="paymentMethod" >
+            </div>
+            <div class="form-group">
+                <label for="paymentDueDate">Payment Due Date</label>
+                <input type="date" class="form-control" id="paymentDueDate" name="paymentDueDate" >
+            </div>
+            <div class="form-group">
+                <label for="otherTerms">Other Terms</label>
+                <input type="text" class="form-control" id="otherTerms" name="otherTerms">
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Additional Notes:</h4>
+            <div class="form-group">
+                <textarea class="form-control" id="additionalNotes" name="additionalNotes" rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Authorized Signature:</h4>
+            <div class="form-group">
+                <label for="authorizedName">Name</label>
+                <input type="text" class="form-control" id="authorizedName" name="authorizedName" >
+            </div>
+            <div class="form-group">
+                <label for="authorizedTitle">Title</label>
+                <input type="text" class="form-control" id="authorizedTitle" name="authorizedTitle" >
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h4>Terms and Conditions</h4>
+            <div class="form-group">
+                <textarea class="form-control" id="termsConditions" name="termsConditions" rows="3" ></textarea>
+            </div>
+        </div>
+-->
+        <div class="text-center mt-5">
+            <button type="submit" class="btn btn-custom" name="purchaseOrderSubmit">Submit Purchase Order</button>
+        </div>
+    </form>
+</div>
+    <!-- Main content -->
+    <!-- /.content -->
+  </div>
+
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+
+
+<!-- jQuery -->
+<script src= "{% static 'jquery/jquery.min.js' %}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'chart.js/Chart.min.js' %}"></script>
+<!-- Sparkline -->
+<script src="{% static 'sparklines/sparkline.js' %}"></script>
+<!-- JQVMap -->
+<!--<script src="plugins/jqvmap/jquery.vmap.min.js"></script>-->
+<script src="{% static 'jqvmap/jquery.vmap.min.js' %}"></script>
+<!--<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>-->
+<script src="{% static 'jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{% static 'jquery-knob/jquery.knob.min.js' %}"></script>
+<!-- daterangepicker -->
+<script src="{% static 'moment/moment.min.js' %}"></script>
+<script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{% static 'tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<!-- Summernote -->
+<script src="{% static 'summernote/summernote-bs4.min.js' %}"></script>
+<!-- overlayScrollbars -->
+<script src="{% static 'overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.js' %}" ></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}" ></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src= "{% static 'dist/js/pages/dashboard.js' %}"></script>
+<script>
+  $(function () {
+    $("#jsGrid1").jsGrid({
+        height: "100%",
+        width: "100%",
+
+        sorting: true,
+        paging: true,
+
+        data: db.clients,
+
+        fields: [
+            { name: "Name", type: "text", width: 150 },
+            { name: "Age", type: "number", width: 50 },
+            { name: "Address", type: "text", width: 200 },
+            { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
+            { name: "Married", type: "checkbox", title: "Is Married" }
+        ]
+    });
+  });
+</script>
+
+
+
+    function addItem() {
+          var row = '<tr>' +
+        '<td><input type="text" class="form-control" name="product[]" required></td>' +
+        '<td><select name="category[]" class="form-control" required>' +
+             '<option value="footwear">Footwear</option>' +
+             '<option value="shirt">Shirt</option>' +
+             '<option value="jeans">Jeans</option>' +
+             '<option value="t-Shirt">T-Shirt</option>' +
+        '</select></td>' +
+        '<td><input type="number" class="form-control" name="quantity[]" required></td>' +
+        '<td><input type="number" class="form-control" name="unitPrice[]" required></td>' +
+        '<td><input type="number" class="form-control" name="customerPrice[]" required></td>' +
+        '<td><input type="text" class="form-control" name="reference[]" required></td>' +
+        '</tr>';
+    document.getElementById('orderItems').insertAdjacentHTML('beforeend', row);
+}
+</script>
+
+<script>
+    function fetchPurchaseOrderDetails() {
+        const purchaseOrderId = document.getElementById('dropdown').value;
+        fetch(`/get-purchase-order-details/?purchase_order_id=${purchaseOrderId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('buyerCompanyName').value = data.buyer.company_name;
+                document.getElementById('buyerAddress').value = data.buyer.address;
+                document.getElementById('supplierCompanyName').value = data.supplier.company_name;
+                document.getElementById('supplierContactPerson').value = data.supplier.contact_person;
+                document.getElementById('supplierAddress').value = data.supplier.address;
+                document.getElementById('supplierPhone').value = data.supplier.phone;
+            });
+    }
+
+    function calculateTotals() {
+        const purchaseOrderId = document.getElementById('dropdown').value;
+        const tax = parseFloat(document.getElementById('tax').value) || 0;
+        const shippingCost = parseFloat(document.getElementById('shippingCost').value) || 0;
+
+        fetch(`/calculate-totals/?purchase_order_id=${purchaseOrderId}&tax=${tax}&shipping_cost=${shippingCost}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('subtotal').value = data.sub_total;
+                document.getElementById('totalAmount').value = data.total_amount;
+            });
+    }
+
+    function addItem() {
+        const tableBody = document.getElementById('orderItems');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input type="text" class="form-control" name="product[]" required></td>
+            <td><select name="category[]" class="form-control" required>
+                        <option value="footwear">Footwear</option>
+                        <option value="shirt">Shirt</option>
+                        <option value="jeans">Jeans</option>
+                        <option value="t-Shirt">T-Shirt</option>
+                        </select></td>
+            <td><input type="number" class="form-control" name="quantity[]" ></td>
+            <td><input type="number" class="form-control" name="unitPrice[]" ></td>
+            <td><input type="number" class="form-control" name="customerPrice[]" ></td>
+            <td><input type="text" class="form-control" name="reference[]" ></td>
+
+        `;
+        tableBody.appendChild(newRow);
+    }
+</script>
+
+<style>
+  .cell {
+    border: 1px solid #000; /* Add a 1px solid black border around each cell */
+    padding: 5px; /* Add padding to the cells for better spacing */
+  }
+</style>
+
+
+</body>
+</html>

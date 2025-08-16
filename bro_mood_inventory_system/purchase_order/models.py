@@ -1,4 +1,4 @@
-from django.db import models
+"""from django.db import models
 from warehouse.models import Warehouse
 from product.models import Supplier, Product, ProductVariant
 import datetime
@@ -37,11 +37,11 @@ class PurchaseOrder(models.Model):
         )['total'] or 0.00
         self.total_amount = total_items_cost + self.shipping_cost + self.tax
         self.save(update_fields=['total_amount'])
-
+    def __str__(self):
+        return (self.warehouse.name +"-"+ self.supplier.name)
 class PurchaseOrderItem(models.Model):
      purchase_order = models.ForeignKey('PurchaseOrder', on_delete=models.CASCADE)
      product = models.ForeignKey(ProductVariant, on_delete=models.CASCADE)
-
      description = models.TextField()
      purchase_demand = models.IntegerField(default=1)
      actual_purchase = models.IntegerField(default=1)
@@ -64,7 +64,7 @@ class PurchaseOrderItem(models.Model):
      def __str__(self):
          return f'Item {self.id} for Purchase Order {self.purchase_order.id}'
 
-     """def save(self, *args, **kwargs):
+     def save(self, *args, **kwargs):
          self.total_bill = self.actual_purchase * self.unit_price
          super(PurchaseOrderItem, self).save(*args, **kwargs)
          self.update_sub_total()

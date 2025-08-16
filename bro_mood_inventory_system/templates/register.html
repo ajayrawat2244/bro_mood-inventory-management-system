@@ -45,36 +45,33 @@
 <div class="card-body">
 <p class="login-box-msg">Sign up with BM Inventory to start your session</p>
 <form method="POST" action="{% url 'register' %}">
-<div class="input-group mb-3">
-<input type="text" name="username" class="form-control" placeholder="username">
-<div class="input-group-append">
-<div class="input-group-text">
-</div>
-</div>
-</div><div class="input-group mb-3">
-<input type="text" name="first_name" class="form-control" placeholder="first name">
-<div class="input-group-append">
-<div class="input-group-text">
-</div>
-</div>
-</div>
+
   <div class="input-group mb-3">
-<input type="text" name="last_name" class="form-control" placeholder="last_name">
-<div class="input-group-append">
-<div class="input-group-text">
-</div>
-</div>
-</div>
-  <div class="input-group mb-3">
-<input type="email" name="email" class="form-control" placeholder="email">
+<input type="email" name="email" class="form-control" placeholder="email" required>
 <div class="input-group-append">
 <div class="input-group-text">
 <span class="fas fa-envelope"></span>
 </div>
 </div>
 </div>
+  <div class="input-group mb-3">
+<input type="tel" name="mobile" class="form-control" placeholder="phone number" required>
+<div class="input-group-append">
+<div class="input-group-text">
+<span class="fas fa-envelope"></span>
+</div>
+</div>
+</div>
+  <div class="input-group mb-3">
+    <label for="exampleInputEmail1">Role in company</label>
+    <select name="userrole" class="form-control" id="exampleInputEmail1" required>
+      <option value="Superadmin">Superadmin</option>
+      <option value="Admin">Admin</option>
+      <option value="Manager">Manager</option>
+      <option value="Employee">Employee</option></select>
+  </div>
 <div class="input-group mb-3">
-<input type="password" name="password" class="form-control" placeholder="Password">
+<input type="password" name="password" class="form-control" placeholder="Password" required>
 <div class="input-group-append">
 <div class="input-group-text">
 <span class="fas fa-lock"></span>

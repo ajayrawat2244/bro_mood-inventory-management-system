@@ -1,8 +1,9 @@
 # views.py
-from django.shortcuts import render, HttpResponse, redirect
+"""from django.shortcuts import render, HttpResponse, redirect
 from .models import *
 from product.models import Supplier, Product, ProductVariant
 from warehouse.models import Warehouse
+from home.models import Company, UserProfile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
@@ -12,9 +13,12 @@ def item_list_view(request):
 
 @login_required(login_url='login')
 def add_purchase_order(request):
-    item = ProductVariant.objects.all()
-    warehouses = Warehouse.objects.all()
-    suppliers = Supplier.objects.all()
+    user = request.user
+    userprofile = UserProfile.objects.get(user=user)
+    company = userprofile.company
+    item = ProductVariant.objects.filter(company=company)
+    warehouses = Warehouse.objects.filter(company=company)
+    suppliers = Supplier.objects.filter(company=company)
     if request.method == 'POST':
         warehouse_id = int(request.POST.get('warehouse'))
         warehouse = Warehouse.objects.get(id=warehouse_id)
@@ -22,9 +26,14 @@ def add_purchase_order(request):
         supplier = Supplier.objects.get(id=supplier_id)
         order_date = request.POST.get('date')
         expected_delivery_date = request.POST.get('expectedDeliveryDate')
+        total_amount = request.POST.get('totalAmount')
+        tax = request.POST.get('tax')
+        shipping_cost = request.POST.get('shippingCost')
         user = request.user
         purchase_order = PurchaseOrder(warehouse=warehouse, supplier=supplier, order_date=order_date,
-                                       expected_delivery_date=expected_delivery_date, user=user)
+                                       expected_delivery_date=expected_delivery_date, user=user,
+                                       shipping_cost=shipping_cost, tax=tax,
+                                       total_amount=total_amount)
         purchase_order.save()
 
         product_list = request.POST.getlist('product[]')
@@ -32,7 +41,7 @@ def add_purchase_order(request):
         total_bill_list = request.POST.getlist('itemTotalPrice[]')
         description = request.POST.getlist('itemDescription[]')
         unit_price = request.POST.getlist('itemUnitPrice[]')
-        for products,actual_purchase,total_bill, description, unit_price in zip(product_list, actual_purchase_list,
+        for products, actual_purchase, total_bill, description, unit_price in zip(product_list, actual_purchase_list,
                                                                     total_bill_list, description, unit_price):
             product = ProductVariant.objects.get(id=int(products))
             PurchaseOrderItem.objects.create(
@@ -52,8 +61,6 @@ def add_purchase_order(request):
 def get_purchase_order_details(request):
     purchase_order_id = request.GET.get('purchase_order_id')
     purchase_order = PurchaseOrder.objects.get(id=purchase_order_id)
-
-
     return render(request,'purchase_order/add_purchase_order.html')
 
 @login_required(login_url='login')
@@ -77,8 +84,7 @@ def purchase_order_detail(request):
     purchase_order_id = request.GET.get('purchase_order_id')
     purchase_order = PurchaseOrder.objects.get(id=purchase_order_id)
     order_item_list = PurchaseOrderItem.objects.filter(purchase_order=purchase_order)
+    last_order_item = order_item_list.last()
     return render(request,'purchase_order/purchase_order_detail.html',
-                  {'purchase_order':purchase_order, 'order_item_list':order_item_list})
-
-
-# Create your views here.
+                  {'purchase_order':purchase_order, 'order_item_list':order_item_list, 'last_order_item':last_order_item})
+"""

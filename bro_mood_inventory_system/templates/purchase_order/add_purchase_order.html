@@ -216,7 +216,7 @@
                         <td>
                             <select name="product[]" class="form-control" placeholder="select Product" >
                         {% for options in item %}
-                      <option value="{{ options.id }}">{{ options.name }}</option>
+                      <option value="{{ options.id }}">{{ options.product.name }}</option>
                       {% endfor %}
                             </select></td>
                         <td><input type="text" class="form-control" name="itemDescription[]" required></td>
@@ -387,7 +387,7 @@
         '<td>' +
         '<select name="product[]" class="form-control" required>' +
         '{% for options in item %}' +
-        '<option value="{{ options.id }}">{{ options.name }}</option>' +
+        '<option value="{{ options.id }}">{{ options.product.name }}</option>' +
         '{% endfor %}' +
         '</select>' +
         '</td>' +
@@ -435,7 +435,7 @@
             <td>
                             <select name="product[]" class="form-control" placeholder="select Product" >
                         {% for options in item %}
-                      <option value="{{ options.id }}">{{ options.name }}</option>
+                      <option value="{{ options.id }}">{{ options.product.name }}</option>
                       {% endfor %}
                             </select></td>
 

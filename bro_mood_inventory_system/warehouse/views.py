@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from home.models import Company, UserProfile
 
 
 def item_list_view(request):
@@ -10,6 +11,9 @@ def item_list_view(request):
 
 @login_required(login_url='login')
 def add_warehouse(request):
+    user = request.user
+    userprofile = UserProfile.objects.get(user=user)
+    company = userprofile.company
     if request.method == 'POST':
         name = request.POST.get("name")
         state = request.POST.get("state")
@@ -19,7 +23,7 @@ def add_warehouse(request):
         contact_information = request.POST.get("contact_information")
         user = request.user
         warehouse = Warehouse(name=name, state=state, district=district, city=city, pincode=pincode,
-                              contact_information=contact_information, user=user)
+                              contact_information=contact_information, user=user, company=company)
         warehouse.save()
         return redirect('/warehouse/list')
     return render(request,'warehouse/add_warehouse.html')

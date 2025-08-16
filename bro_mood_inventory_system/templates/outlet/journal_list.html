@@ -1,0 +1,369 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        {% load static %}
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>BM Inventory | Dashboard</title>
+
+      <!-- Google Font: Source Sans Pro -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+      <!-- Font Awesome -->
+    <!--  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">-->
+
+      <link rel="stylesheet" href="{% static 'fontawesome-free/css/all.min.css' %}">
+
+      <!-- Ionicons -->
+      <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <!-- Tempusdominus Bootstrap 4 -->
+    <!--  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">-->
+      <link rel="stylesheet" href="{% static 'tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}">
+      <!-- iCheck -->
+    <!--  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">-->
+      <link rel="stylesheet" href="{% static 'icheck-bootstrap/icheck-bootstrap.min.css' %}">
+      <!-- JQVMap -->
+    <!--  <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">-->
+      <link rel="stylesheet" href="{% static 'jqvmap/jqvmap.min.css' %}">
+      <!-- Theme style -->
+    <!--  <link rel="stylesheet" href="dist/css/adminlte.min.css">-->
+      <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+      <!-- overlayScrollbars -->
+    <!--  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">-->
+      <link rel="stylesheet" href="{% static 'overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+      <!-- Daterange picker -->
+    <!--  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">-->
+      <link rel="stylesheet" href="{% static 'daterangepicker/daterangepicker.css' %}">
+      <!-- summernote -->
+    <!--  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">-->
+      <link rel="stylesheet" href="{% static 'summernote/summernote-bs4.min.css' %}">
+        <!-- Add Bootstrap CSS (in the <head>) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+
+      <!-- Preloader -->
+      <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
+      </div>
+
+<!-- Add Bootstrap JS (before the closing </body> tag) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      {% include 'basic/navbar.html' %}
+
+
+      {% include 'basic/side_bar.html' %}
+
+      <!-- Content Wrapper. Contains page content -->
+
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Journal</h1>
+              </div>
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">Journal</li>
+                </ol>
+              </div>
+            </div>
+          </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Journal</h3>
+                <a href="/outlet/add-journal"><button type="button" class="btn btn-primary float-right">Add</button></a>
+                <div class="clearfix"></div>
+
+            </div>
+                <div class="card-body" >
+<form method="get" action="">
+    <div class="row" >
+        <!-- Filter by Category -->
+        <div class="col-md-3">
+            <label>Category</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Category
+                </button>
+                <ul class="dropdown-menu">
+                    {% for category in category_list %}
+                        <li>
+                            <label class="dropdown-item">
+                                <input type="checkbox" name="category" value="{{ category }}" class="form-check-input"
+                                    {% if category in selected_categories %}checked{% endif %}>
+                                {{ category }}
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+<!-- Filter by Article -->
+        <div class="col-md-3" style="margin:0; padding:0;">
+            <label>Article</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Articles
+                </button>
+                <ul class="dropdown-menu">
+                    {% for article in article_list %}
+                        <li>
+                            <label class="dropdown-item">
+                                <input type="checkbox" name="article" value="{{ article }}" class="form-check-input"
+                                    {% if article in selected_articles %}checked{% endif %}>
+                                {{ article }}
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Filter by Size -->
+        <div class="col-md-3" style="margin:0; padding:0;">
+            <label>Size</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Sizes
+                </button>
+                <ul class="dropdown-menu">
+                    {% for size in size_list %}
+                        <li>
+                            <label class="dropdown-item">
+                                <input type="checkbox" name="size" value="{{ size }}" class="form-check-input"
+                                    {% if size in selected_sizes %}checked{% endif %}>
+                                {{ size }}
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Filter by Color -->
+        <div class="col-md-3" style="margin:0; padding:0;">
+            <label>Color</label>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Colors
+                </button>
+                <ul class="dropdown-menu">
+                    {% for color in color_list %}
+                        <li>
+                            <label class="dropdown-item">
+                                <input type="checkbox" name="color" value="{{ color }}" class="form-check-input"
+                                    {% if color in selected_colors %}checked{% endif %}>
+                                {{ color }}
+                            </label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-md-3 align-self-end" style="margin:0; padding:0;">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a href="{% url 'journal-list' %}" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+</form>
+
+
+             <div class="container">
+               <div class="row">
+                <div class="col">
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Article</th>
+                                <th>Size</th>
+                                <th>Color</th>
+                                <th>Category</th>
+                                <th>Debit</th>
+                                <th>credit</th>
+                                <th>Debit Date</th>
+                                <th>Credit Date</th>
+                                <th>more options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for journal in journals %}
+                            <tr>
+                                <td>{{ journal.article }}</td>
+                                <td>{{ journal.size }}</td>
+                                <td>{{ journal.color }}</td>
+                                <td>{{ journal.category }}</td>
+                                <td>{{ journal.debit }}</td>
+                                <td>{{ journal.credit }}</td>
+                                <td>{{ journal.register_date }}</td>
+                                <td>{{ journal.credit_date }}</td>
+                                <td>
+                                    <div class="container mt-1" id="add_credit_{{ journal.serial_no }}">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" onclick="addCredit({{ journal.serial_no }})">
+                                                    <i class="fas fa-edit mr-2"></i>Add credit
+                                                </a>
+                                                <a class="dropdown-item" href="#"><i class="fas fa-trash-alt mr-2"></i>Delete</a>
+                                                <a class="dropdown-item" href="#"><i class="fas fa-info-circle mr-2"></i>Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+                    <!--
+             <div class="row">
+                <div class="col">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            {% if journal_list.has_previous %}
+                            <li class="page-item {% if journal_list.number == 1 %} active {% endif %}">
+                                <a class="page-link" href="/outlet/journal-list?page=1" tabindex="-1" >First</a>
+                            </li>
+                            <li class="page-item {% if journal_list.number == journal_list.previous_page_number  %} active {% endif %}" aria-current="page">
+                                <a class="page-link" href="/outlet/journal-list?page={{ journal_list.previous_page_number }}">Previous</a>
+                            </li>
+                            {% endif %}
+
+                            {% for i in total_page_list %}
+                            <li class="page-item {% if journal_list.number == i %} active {% endif %}"><a class="page-link" href="/outlet/journal-list?page={{ i }}">{{ i }}</a></li>
+                            {% endfor %}
+
+                             {% if journal_list.has_next %}
+                            <li class="page-item {% if journal_list.number == total_page %} active {% endif %}">
+                                <a class="page-link" href="/outlet/journal-list?page={{ num_pages }}">Last</a>
+                            </li>
+                            <li class="page-item {% if journal_list.number == journal_list.next_page_number %} active {% endif %}">
+                                <a class="page-link" href="/outlet/journal-list?page={{ journal_list.next_page_number }}">Next</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                -->
+            </div>
+          </div>
+              <div class="total-journal">
+        <div class="total-debit">
+            <h4>total debit: {{ total_debit }}</h4>
+        </div>
+        <div class="total-credit">
+            <h4>total credit: {{ total_credit }} (with investment {{ invest_on_credit }})</h4>
+        </div>
+        <div class="count">
+            <h4>Total No. of Items: {{ count }}</h4>
+            <h4>No. of remaining Items: {{ avl_count }}</h4>
+            <h4>No. of Sold Items: {{ sold_count }}</h4>
+        </div>
+
+    </div>
+          <!-- /.card -->
+        </section>
+        <!-- /.content -->
+      </div>
+    <div class="total-journal">
+        <div class="total-debit">
+            <p>total debit</p>
+        </div>
+        <div class="total-credit">
+            total credit
+        </div>
+    </div>
+      {% include 'basic/footer.html' %}
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script>
+    function addCredit(journalId) {
+        let add_credit = document.getElementById("add_credit_" + journalId);
+
+        // Remove any existing form before adding a new one
+        let existingForm = add_credit.querySelector(".addCredit");
+        if (existingForm) {
+            existingForm.remove();
+        }
+
+        // Append the form dynamically
+        add_credit.innerHTML = `
+        <div class="addCredit mt-2">
+            <form method="POST" action="" id="addCredit">
+            {% csrf_token %}
+                <input type="hidden" name="journal_id" value="${journalId}">
+                <div class="input-group" style="max-width: 300px;">
+                    <input type="number" class="form-control" name="credit" placeholder="amount" style="max-width: 110px;" required>
+                    <input type="date" class="form-control" name="date" required>
+                    <button type="submit" class="btn btn-success" style="max-width: 60px;">Save</button>
+                </div>
+            </form>
+        </div>`;
+    }
+</script>
+
+    <script src= "{% static 'jquery/jquery.min.js' %}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{% static 'jquery-ui/jquery-ui.min.js' %}"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- ChartJS -->
+    <script src="{% static 'chart.js/Chart.min.js' %}"></script>
+    <!-- Sparkline -->
+    <script src="{% static 'sparklines/sparkline.js' %}"></script>
+    <!-- JQVMap -->
+    <!--<script src="plugins/jqvmap/jquery.vmap.min.js"></script>-->
+    <script src="{% static 'jqvmap/jquery.vmap.min.js' %}"></script>
+    <!--<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>-->
+    <script src="{% static 'jqvmap/maps/jquery.vmap.usa.js' %}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{% static 'jquery-knob/jquery.knob.min.js' %}"></script>
+    <!-- daterangepicker -->
+    <script src="{% static 'moment/moment.min.js' %}"></script>
+    <script src="{% static 'daterangepicker/daterangepicker.js' %}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{% static 'tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <!-- Summernote -->
+    <script src="{% static 'summernote/summernote-bs4.min.js' %}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{% static 'overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.js' %}" ></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}" ></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src= "{% static 'dist/js/pages/dashboard.js' %}"></script>
+
+    </body>
+    </html>

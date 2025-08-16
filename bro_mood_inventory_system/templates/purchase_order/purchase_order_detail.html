@@ -128,22 +128,22 @@
             <h5>Purchase Order Number: <span>{{ purchase_order.id }}</span></h5>
         </div>
         <div class="col-md-6 text-right">
-            <h5>Date: <span>[Date]</span></h5>
+            <h5>Date: <span>{{ purchase_order.order_date }}</span></h5>
         </div>
     </div>
 
     <div class="mt-4">
         <h4>Buyer Information:</h4>
-        <p><strong>Company Name:</strong>{{ purchase_order.warehouse.name }}</p>
+        <p><strong>Warehouse Name:</strong>{{ purchase_order.warehouse.name }}</p>
         <p><strong>Contact Person:</strong>NO CONTACT INFORMATION</p>
-        <p><strong>Address:</strong>{{ purchase_order.warehouse.city }}, {{ purchase_order.warehouse.pincode }}, {{ purchase_order.warehouse.state }}</p>
+        <p><strong>Address:</strong>{{ purchase_order.warehouse.city }}, {{ purchase_order.warehouse.state }}, {{ purchase_order.warehouse.pincode }} </p>
         <p><strong>Phone:</strong>{{ purchase_order.warehouse.contact_information }}</p>
         <p><strong>Email:</strong>NO EMAIL</p>
     </div>
 
     <div class="mt-4">
         <h4>Supplier Information:</h4>
-        <p><strong>Company Name:</strong>{{ purchase_order.supplier.name }}</p>
+        <p><strong>Supplier Name:</strong>{{ purchase_order.supplier.name }}</p>
         <p><strong>Contact Person:</strong>{{ purchase_order.supplier.contact_person }}</p>
         <p><strong>Address:</strong>{{ purchase_order.supplier.address }}</p>
         <p><strong>Phone:</strong>{{ purchase_order.supplier.mobile }}</p>
@@ -163,12 +163,13 @@
                 </tr>
             </thead>
             <tbody>
+
             {% for option in order_item_list %}
                 <tr>
-                    <td>{{ option.product.name}}</td>
+                    <td>{{ option.product.product.name}}</td>
                     <td>{{ option.description}}</td>
                     <td>{{ option.actual_purchase }}</td>
-                    <td>{{ option.supplier_price }}</td>
+                    <td>{{ option.unit_price }}</td>
                     <td>{{ option.total_bill }}</td>
                 </tr>
             {% endfor %}
@@ -176,7 +177,7 @@
             </tbody>
         </table>
         <div class="text-right">
-            <p><strong>Subtotal:</strong>{{ option.last_item.total_bill }} </p>
+            <p><strong>Subtotal:</strong>{{ last_order_item.sub_total }} </p>
             <p><strong>Tax (if applicable):</strong>{{ purchase_order.tax }}</p>
             <p><strong>Shipping Cost:</strong>{{ purchase_order.shipping_cost }}</p>
             <p><strong>Total Amount:</strong>{{ purchase_order.total_amount }}</p>
